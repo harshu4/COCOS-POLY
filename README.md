@@ -2,6 +2,8 @@
 
 ![alt text](https://raw.githubusercontent.com/harshu4/COCOS-POLY/master/game-preview/0.png)
 
+![alt text](https://github.com/harshu4/COCOS-POLY/blob/master/game-preview/6.png)
+
 
 ## Features
 
@@ -20,7 +22,16 @@
 - Read the Presentation Uploaded here https://github.com/harshu4/COCOS-POLY/blob/master/Coco%E2%80%99s%20Poly.pptx
 
 ## How to start
-- Information regarding starting this will be updated soon
+```bash
+node Contract_Call_Function_Helper/server.js
+python3 Websocket-Server/main.py
+cd Frontend && python3 -m http.server
+  
+}
+```
+- Front End will be accesible on localhost:8000
+- You also have to deploy contract on cocos-terminal.com , 
+
 
 
 
