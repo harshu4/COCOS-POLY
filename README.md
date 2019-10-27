@@ -16,6 +16,9 @@
 - Lua For Contract Development
 - Cocos-BCX chain for Data handling, Random Number Generation and Payment Solution
 
+## Want More Info 
+- Read the Presentation Uploaded here https://github.com/harshu4/COCOS-POLY/blob/master/Coco%E2%80%99s%20Poly.pptx
+
 ## How to start
 - Information regarding starting this will be updated soon
 
@@ -24,3 +27,5 @@
 ## Devlopers
 - Dwij Patel
 - Harsh Gandhi
+
+
