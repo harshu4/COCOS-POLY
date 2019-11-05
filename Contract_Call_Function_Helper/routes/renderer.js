@@ -4,11 +4,13 @@ var router = express.Router();
 var bcx = require('../bcxi.js')
 
 router.post('/startgame', function (req, res) {
-	var gid=req.body.gameid;
+	var gid=req.body.gameid
+	console.log('hello world')
+	console.log(gid);
 	bcx.callContractFunction({
-			nameOrId: "contract.final",
+			nameOrId: "contract.totaldhamal",
 			functionName: "startgame",
-			valueList: [gid], 
+			valueList: [gid],
 			onlyGetFee: false,
 			callback: function (reso) {
 					//x = reso['data'][0]['contract_affecteds'][0]['raw_data']['message']
@@ -26,9 +28,9 @@ router.post('/isregistered', function (req, res) {
 	var gid=req.body.gameid;
 	var id=req.body.playerid;
 	bcx.callContractFunction({
-			nameOrId: "contract.final",
+			nameOrId: "contract.totaldhamal",
 			functionName: "isregistered",
-			valueList: [gid,id], 
+			valueList: [gid,id],
 			onlyGetFee: false,
 			callback: function (reso) {
 					//x = reso['data'][0]['contract_affecteds'][0]['raw_data']['message']
@@ -53,7 +55,7 @@ router.post('/settlment', function (req, res) {
 	bcx.callContractFunction({
 			nameOrId: "contract.final",
 			functionName: "settlment",
-			valueList: [gid,id], 
+			valueList: [gid,id],
 			onlyGetFee: false,
 			callback: function (reso) {
 					//x = reso['data'][0]['contract_affecteds'][0]['raw_data']['message']

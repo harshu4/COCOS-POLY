@@ -177,7 +177,7 @@ div.ex1 {
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-	
+
 
 
 	var playeridx;
@@ -188,8 +188,8 @@ div.ex1 {
 	var ws;
 	var numx;
 	var bcx;
-	var iscreateroom=false;	
-	
+	var iscreateroom=false;
+
 
 	function createroom(){
 		iscreateroom=true;
@@ -198,7 +198,7 @@ div.ex1 {
 		  if(!intidone){
 			init();
 		  }
-		
+
 	}
 
 	function startgame(){
@@ -222,10 +222,10 @@ div.ex1 {
 		document.getElementById('roomjoined').style.display="none"
 		intidone=false;
 		iscreateroom=false;
-	  
+
 	  }else{
 		bcx.getAccountInfo().then(function (res){
-            console.log('account:',res);  
+            console.log('account:',res);
 			if(res["account_id"]!=""){
 				playeridx=res["account_id"];
 				calleridx=res["account_name"];
@@ -233,8 +233,8 @@ div.ex1 {
 				ws.onopen = function() {
 					ws.send(JSON.stringify({task : "register",playerid: playeridx}));
 				};
-			
-				ws.onmessage = function (evt) { 
+
+				ws.onmessage = function (evt) {
 					var received_msg = evt.data;
 					var obj = JSON.parse(received_msg);
 					if(obj.response=="sucess"){
@@ -252,7 +252,7 @@ div.ex1 {
 							if(iscreateroom){
 								document.getElementById('loader').style.display="none"
 								document.getElementById('roomjoined').innerHTML = '<button type="submit" id="login-submit" class="large-button" onclick="startgame()">Start Game</button>'
-							
+
 							}else{
 								document.getElementById('loader').style.display="none"
 								document.getElementById('roomjoined').innerHTML = '<h1>Now sit and relex, wait for room creator to start game</h1>'
@@ -268,10 +268,10 @@ div.ex1 {
 						}
 
 					}
-					
+
 				};
-			
-				ws.onclose = function() { 
+
+				ws.onclose = function() {
 					intidone=false;
 					iscreateroom=false;
 					document.getElementById('starter').style.display= "block"
@@ -286,7 +286,7 @@ div.ex1 {
 					document.getElementById('created').innerHTML = '<h1>Let\'s Do it </h1> <button type="submit" id="login-submit" class="large-button" onclick="joinroom()">Join Room</button>'
 					document.getElementById('created').style.display="block"
 					console.log('done')
-				
+
 				}, 3000);*/
 			}else{
 				alert("please login to your cocos account");
@@ -298,40 +298,43 @@ div.ex1 {
 				document.getElementById('roomjoined').style.display="none"
 				intidone=false;
 				iscreateroom=false;
-			}  
+			}
          })
 	  }
 
 	}
 	function joinroom(){
-		
+
 		document.getElementById('created').style.display="none"
 		document.getElementById('listroom').style.display="none"
 		document.getElementById('loader').style.display="block"
 		bcx.callContractFunction({
-             nameOrId:"contract.final",
+             nameOrId:"contract.totaldhamal",
              functionName:"register",
              valueList:[roomidx],
              runtime: 10,
              onlyGetFee: false
          }).then(function (res){
             if(res["code"]==1){
-				numx=res['data'][0]['contract_affecteds'][0]['raw_data']['message'];
+				numx=res['data'][0]['contract_affecteds'][2]['raw_data']['message'];
+        console.log(res['data'][0]['contract_affecteds'][2]['raw_data']['message'])
 				ws.send(JSON.stringify({task : "joinroom",roomid:roomidx,callerid:calleridx,num:numx}));
 			}else{
+        console.log(res)
 				document.getElementById('starter').style.display= "block"
 	  			document.getElementById('loader').style.display="none"
 				document.getElementById('listroom').style.display="none"
 				document.getElementById('created').style.display="none"
 				document.getElementById('roomjoined').style.display="none"
 				intidone=false;
+
 				iscreateroom=false;
 				alert("Failed to join room");
-			}    
+			}
          })
-		
+
 	}
-	
+
 	function rotare(idea){
 		roomidx=listor[idea];
 		joinroom();
@@ -341,15 +344,15 @@ div.ex1 {
 	  document.getElementById('starter').style.display = "none"
 	  document.getElementById('loader').style.display="block"
 
-	 
-	  
+
+
 	  $.get("http://127.0.0.1:5001/getroom", function(data, status){
-	
+
 		var key =Object.keys(data)[0];
 		var out="";
 		var inoi=0;
 		(data[key]).forEach(function(item){
-  			
+
 			listor.push(item)
 			out =out+'<h1>Room '+(inoi+1)+' </h1> <button type="submit" id="'+inoi+'" class="large-button" onclick="rotare(this.id)">Join Room</button> ';
 			inoi++;
@@ -370,7 +373,7 @@ div.ex1 {
 	},3000)
 	*/
 
-	
+
 	</script>
 </head>
 <body>

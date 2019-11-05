@@ -22,7 +22,7 @@ let bcx=new BCX({
 });
 
 bcx.passwordLogin({
-    account:"helloworld",//query.loginUserName,
+    account:"helloboi",//query.loginUserName,
     password:"yoyoyoyo12"
 }).then(res=>{
     console.info("bcx passwordLogin res",res);

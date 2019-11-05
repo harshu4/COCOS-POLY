@@ -8,8 +8,8 @@ var app = express();
 var renderer = require('./routes/renderer');
 
 app.use(compress());
-app.use(bodyParser.json({limit: '100mb'}));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', renderer);
 
@@ -36,6 +36,6 @@ app.use(function(err, req, res, next) {
     html+= '  </body>';
     html+= '</html>';
     res.send(html);
-}); 
+});
 
 module.exports = app;

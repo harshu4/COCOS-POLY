@@ -89,6 +89,7 @@ class roomsocket(websocket.WebSocketHandler):
             global busyroom
             global roommanger
             data=json.loads(message)
+            print(data)
             if data["task"]=="register":
                 self.playerid=data["playerid"]
                 roomuser[self.playerid]=self
@@ -107,6 +108,8 @@ class roomsocket(websocket.WebSocketHandler):
                 #execute thred to run contract init_game
             elif data["task"]=="joinroom":
                 self.roomid=data["roomid"]
+
+                print("this is the best")
                 t1 = threading.Thread(target=joinroomthred, args=(self.roomid,self.playerid,data["callerid"],data["num"],))
                 t1.start()
                 # execute thred to run contract for if user paid
@@ -166,7 +169,7 @@ def createroomthred(roomid,playerid):
     #call contract for init_game
     #if response True then send message to ws
     data={"gameid":roomid}
-    p=requests.post("http://127.0.0.1:3002/startgame",data=json.dumps(data)).text
+    p=requests.post("http://127.0.0.1:3002/startgame",data=data).text
     p=json.loads(p)
     if p["response"]=="sucess":
         if True:
@@ -186,6 +189,7 @@ def joinroomthred(roomid,playerid,callerid,num):
         pass
 
     def on_open(ws):
+        print("hello in thread")
         data=json.dumps({"response":"sucess","task":"background","subtask":"joinroom","playerid":playerid,"roomid":roomid,"callerid":callerid,"num":num})
         ws.send(data)
         ws.close()
@@ -193,7 +197,8 @@ def joinroomthred(roomid,playerid,callerid,num):
     #call contract for register
     #if response True then send message to ws
     data={"gameid":roomid,"playerid":playerid}
-    p=requests.post("http://127.0.0.1:3002/isregistred",data=json.dumps(data)).text
+    p=requests.post("http://127.0.0.1:3002/isregistered",data=data).text
+    
     p=json.loads(p)
     if p["response"]=="sucess":
         if True:
@@ -204,7 +209,7 @@ def joinroomthred(roomid,playerid,callerid,num):
 
 def settlmentthred(roomid,playerid):
     data = {"gameid": roomid,"playerid":playerid}
-    p = requests.post("http://127.0.0.1:3002/settlment", data=json.dumps(data)).text
+    p = requests.post("http://127.0.0.1:3002/settlment", data=data).text
 
 
 
