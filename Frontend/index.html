@@ -317,7 +317,7 @@ div.ex1 {
          }).then(function (res){
             if(res["code"]==1){
 				numx=res['data'][0]['contract_affecteds'][2]['raw_data']['message'];
-        console.log(res['data'][0]['contract_affecteds'][2]['raw_data']['message'])
+        console.log(res)
 				ws.send(JSON.stringify({task : "joinroom",roomid:roomidx,callerid:calleridx,num:numx}));
 			}else{
         console.log(res)
